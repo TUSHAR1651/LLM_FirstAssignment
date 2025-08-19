@@ -6,7 +6,7 @@ public class DatasetReader {
         List<Book> books = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
-            br.readLine(); // skip header line
+            br.readLine(); 
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1); 
                 if (values.length == 7) {
@@ -22,7 +22,7 @@ public class DatasetReader {
                         Book book = new Book(title, author, userRating, reviews, price, year, genre);
                         books.add(book);
                     } catch (Exception e) {
-                        // skip malformed lines
+                        throw new RuntimeException("Error parsing line: " + line, e);
                     }
                 }
             }
